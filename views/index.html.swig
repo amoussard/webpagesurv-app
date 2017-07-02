@@ -1,33 +1,15 @@
-{% extends 'layout.html.swig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <title>Angular Messenger</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
 
-{% block title %}{% endblock %}
+</head>
+<body>
+<my-app>Loading...</my-app>
 
-
-{% block content %}
-
-<div class="container">
-    <h1>Warning</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Url</th>
-                <th>Cron</th>
-                <th>Text</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for watch in watchs %}
-                <tr>
-                    <td>{{ watch.url }}</td>
-                    <td>{{ watch.cron }}</td>
-                    <td>{{ watch.text }}</td>
-                    <td><a href="/{{ watch._id.toString() }}">X</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-</div>
-
-{% endblock %}
+<script src="/js/app/bundle.js"></script>
+</body>
+</html>

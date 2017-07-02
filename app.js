@@ -8,13 +8,13 @@ var swig = require('swig');
 var mongoose = require('mongoose');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var watch = require('./routes/watch');
 
 var app = express();
 mongoose.connect('mongodb://amoussard:moabi2017@ds139942.mlab.com:39942/warning');
 
 // view engine setup
-var swig = new swig.Swig();
+swig = new swig.Swig();
 app.engine('html.swig', swig.renderFile);
 app.set('view engine', 'html.swig');
 
@@ -26,25 +26,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+    next();
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use('/watch', watch);
+app.use('/', index);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    console.log('ici');
+    return res.render('index');
 });
 
 module.exports = app;

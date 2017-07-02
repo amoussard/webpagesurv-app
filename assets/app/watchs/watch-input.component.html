@@ -1,0 +1,17 @@
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="watchForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="url">Url</label>
+            <input type="text" id="url" class="form-control" formControlName="url">
+        </div>
+        <div class="form-group">
+            <label for="cron">Cron</label>
+            <input type="text" id="cron" class="form-control" formControlName="cron">
+        </div>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <input type="text" id="text" class="form-control" formControlName="text">
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!watchForm.valid">Submit</button>
+    </form>
+</div>

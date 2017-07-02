@@ -1,0 +1,21 @@
+<div class="col-md-8 col-md-offset-2">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Url</th>
+            <th>Cron</th>
+            <th>Text</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr app-watch
+                [watch]="watch"
+                *ngFor="let watch of watchs"></tr>
+        </tbody>
+    </table>
+
+
+</div>
+
