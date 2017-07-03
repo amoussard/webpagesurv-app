@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var swig = require('swig');
 var mongoose = require('mongoose');
 
+var cronManager = require('./CronManager');
+
 var index = require('./routes/index');
 var watch = require('./routes/watch');
 
@@ -38,7 +40,6 @@ app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    console.log('ici');
     return res.render('index');
 });
 
