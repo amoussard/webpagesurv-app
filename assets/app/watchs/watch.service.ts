@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class WatchService {
-    private url = 'http://localhost:3002';
+    private url = 'http://localhost:3000';
     private socket;
     private watchs: Watch[] = [];
     watchIsEdit = new EventEmitter<Watch>();
@@ -26,7 +26,7 @@ export class WatchService {
             ? '?token=' + localStorage.getItem('token')
             : '';
 
-        return this.http.post('http://localhost:3002/watch' + token, body, { headers: headers })
+        return this.http.post('http://localhost:3000/watch' + token, body, { headers: headers })
             .map((response: Response) => {
                 const result = response.json();
                 const watch = new Watch(
@@ -47,7 +47,7 @@ export class WatchService {
 
     getWatchs() {
         return new Observable(observer => {
-            this.http.get('http://localhost:3002/watch')
+            this.http.get('http://localhost:3000/watch')
                 .map((response: Response) => {
                     const watchs = response.json().obj;
 
@@ -110,7 +110,7 @@ export class WatchService {
             ? '?token=' + localStorage.getItem('token')
             : '';
 
-        return this.http.patch('http://localhost:3002/watch/' + watch.id + token, body, { headers: headers })
+        return this.http.patch('http://localhost:3000/watch/' + watch.id + token, body, { headers: headers })
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -124,7 +124,8 @@ export class WatchService {
             : '';
 
         this.watchs.splice(this.watchs.indexOf(watch), 1);
-        return this.http.delete('http://localhost:3002/watch/' + watch.id + token)
+
+        return this.http.delete('http://localhost:3000/watch/' + watch.id + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
