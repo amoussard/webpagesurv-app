@@ -12,6 +12,7 @@
         <tbody>
         <tr app-watch
                 [watch]="watch"
+                [ngClass]="{success: watch.changed, danger: !watch.changed}"
                 *ngFor="let watch of watchs"></tr>
         </tbody>
     </table>
