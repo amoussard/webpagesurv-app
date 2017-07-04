@@ -14,8 +14,7 @@ COPY webpack.config.common.js /usr/src/app/
 COPY assets /usr/src/app/assets
 RUN npm install
 RUN npm run build-prod
-RUN rm -rf node_modules tsconfig.aot.json tsconfig.json webpack.config.dev.js
-RUN npm install --production
+RUN rm -rf tsconfig.aot.json tsconfig.json webpack.config.dev.js webpack.config.common.js
 
 # Bundle app source
 COPY bin /usr/src/app/bin
