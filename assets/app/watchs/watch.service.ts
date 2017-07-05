@@ -5,16 +5,16 @@ import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
 import { ErrorService } from "../errors/error.service";
 import * as io from 'socket.io-client';
+import * as CONST from '../const';
 
 @Injectable()
 export class WatchService {
-    private url = 'http://localhost:3000';
     private socket;
     private watchs: Watch[] = [];
     watchIsEdit = new EventEmitter<Watch>();
 
     constructor(private http: Http, private errorService: ErrorService) {
-        this.socket = io.connect(this.url);
+        this.socket = io.connect(CONST.API_URL);
     }
 
     addWatch(watch: Watch) {
@@ -26,7 +26,7 @@ export class WatchService {
             ? '?token=' + localStorage.getItem('token')
             : '';
 
-        return this.http.post('http://localhost:3000/watch' + token, body, { headers: headers })
+        return this.http.post(CONST.API_URL + 'api/watch' + token, body, { headers: headers })
             .map((response: Response) => {
                 const result = response.json();
                 const watch = new Watch(
@@ -47,7 +47,7 @@ export class WatchService {
 
     getWatchs() {
         return new Observable(observer => {
-            this.http.get('http://localhost:3000/watch')
+            this.http.get(CONST.API_URL + 'api/watch')
                 .map((response: Response) => {
                     const watchs = response.json().obj;
 
@@ -110,7 +110,7 @@ export class WatchService {
             ? '?token=' + localStorage.getItem('token')
             : '';
 
-        return this.http.patch('http://localhost:3000/watch/' + watch.id + token, body, { headers: headers })
+        return this.http.patch(CONST.API_URL + 'api/watch/' + watch.id + token, body, { headers: headers })
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -125,7 +125,7 @@ export class WatchService {
 
         this.watchs.splice(this.watchs.indexOf(watch), 1);
 
-        return this.http.delete('http://localhost:3000/watch/' + watch.id + token)
+        return this.http.delete(CONST.API_URL + 'api/watch/' + watch.id + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
